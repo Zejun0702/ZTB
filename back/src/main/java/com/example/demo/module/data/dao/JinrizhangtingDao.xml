@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.module.data.dao.JinrizhangtingDao">
+  <resultMap id="BaseResultMap" type="com.example.demo.module.data.entity.Jinrizhangting">
+    <id column="objid" jdbcType="VARCHAR" property="objid" />
+    <result column="rp_time" jdbcType="DATE" property="rpTime" />
+    <result column="stockcode" jdbcType="VARCHAR" property="stockcode" />
+    <result column="stockname" jdbcType="VARCHAR" property="stockname" />
+    <result column="change_percent" jdbcType="DOUBLE" property="changePercent" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="buy_lock_volume_ratio" jdbcType="DOUBLE" property="buyLockVolumeRatio" />
+    <result column="turnover_ratio" jdbcType="DOUBLE" property="turnoverRatio" />
+    <result column="non_restricted_capital" jdbcType="DOUBLE" property="nonRestrictedCapital" />
+    <result column="total_capital" jdbcType="DOUBLE" property="totalCapital" />
+    <result column="first_limit_up" jdbcType="TIMESTAMP" property="firstLimitUp" />
+    <result column="last_limit_up" jdbcType="TIMESTAMP" property="lastLimitUp" />
+    <result column="limit_up_days" jdbcType="INTEGER" property="limitUpDays" />
+    <result column="break_limit_up_times" jdbcType="INTEGER" property="breakLimitUpTimes" />
+    <result column="stock_reason" jdbcType="VARCHAR" property="stockReason" />
+    <result column="plate_name" jdbcType="VARCHAR" property="plateName" />
+    <result column="plate_id" jdbcType="VARCHAR" property="plateId" />
+    <result column="m_days_n_boards_days" jdbcType="INTEGER" property="mDaysNBoardsDays" />
+    <result column="m_days_n_boards_boards" jdbcType="INTEGER" property="mDaysNBoardsBoards" />
+    <result column="plate_name2" jdbcType="VARCHAR" property="plateName2" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    objid, rp_time, stockcode, stockname, change_percent, price, buy_lock_volume_ratio, 
+    turnover_ratio, non_restricted_capital, total_capital, first_limit_up, last_limit_up, 
+    limit_up_days, break_limit_up_times, stock_reason, plate_name, plate_id, m_days_n_boards_days, 
+    m_days_n_boards_boards, plate_name2
+  </sql>
+  <select id="selectByDate" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+<!--    <include refid="Base_Column_List" />-->
+    from jinrizhangting
+    where rp_time = #{date}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from jinrizhangting
+    where objid = #{objid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="objid" keyProperty="objid" parameterType="com.example.demo.module.data.entity.Jinrizhangting" useGeneratedKeys="true">
+    insert into jinrizhangting (rp_time, stockcode, stockname, 
+      change_percent, price, buy_lock_volume_ratio, 
+      turnover_ratio, non_restricted_capital, total_capital, 
+      first_limit_up, last_limit_up, limit_up_days, 
+      break_limit_up_times, stock_reason, plate_name, 
+      plate_id, m_days_n_boards_days, m_days_n_boards_boards, 
+      plate_name2)
+    values (#{rpTime,jdbcType=DATE}, #{stockcode,jdbcType=VARCHAR}, #{stockname,jdbcType=VARCHAR}, 
+      #{changePercent,jdbcType=DOUBLE}, #{price,jdbcType=DOUBLE}, #{buyLockVolumeRatio,jdbcType=DOUBLE}, 
+      #{turnoverRatio,jdbcType=DOUBLE}, #{nonRestrictedCapital,jdbcType=DOUBLE}, #{totalCapital,jdbcType=DOUBLE}, 
+      #{firstLimitUp,jdbcType=TIMESTAMP}, #{lastLimitUp,jdbcType=TIMESTAMP}, #{limitUpDays,jdbcType=INTEGER}, 
+      #{breakLimitUpTimes,jdbcType=INTEGER}, #{stockReason,jdbcType=VARCHAR}, #{plateName,jdbcType=VARCHAR}, 
+      #{plateId,jdbcType=VARCHAR}, #{mDaysNBoardsDays,jdbcType=INTEGER}, #{mDaysNBoardsBoards,jdbcType=INTEGER}, 
+      #{plateName2,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" keyColumn="objid" keyProperty="objid" parameterType="com.example.demo.module.data.entity.Jinrizhangting" useGeneratedKeys="true">
+    insert into jinrizhangting
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rpTime != null">
+        rp_time,
+      </if>
+      <if test="stockcode != null">
+        stockcode,
+      </if>
+      <if test="stockname != null">
+        stockname,
+      </if>
+      <if test="changePercent != null">
+        change_percent,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="buyLockVolumeRatio != null">
+        buy_lock_volume_ratio,
+      </if>
+      <if test="turnoverRatio != null">
+        turnover_ratio,
+      </if>
+      <if test="nonRestrictedCapital != null">
+        non_restricted_capital,
+      </if>
+      <if test="totalCapital != null">
+        total_capital,
+      </if>
+      <if test="firstLimitUp != null">
+        first_limit_up,
+      </if>
+      <if test="lastLimitUp != null">
+        last_limit_up,
+      </if>
+      <if test="limitUpDays != null">
+        limit_up_days,
+      </if>
+      <if test="breakLimitUpTimes != null">
+        break_limit_up_times,
+      </if>
+      <if test="stockReason != null">
+        stock_reason,
+      </if>
+      <if test="plateName != null">
+        plate_name,
+      </if>
+      <if test="plateId != null">
+        plate_id,
+      </if>
+      <if test="mDaysNBoardsDays != null">
+        m_days_n_boards_days,
+      </if>
+      <if test="mDaysNBoardsBoards != null">
+        m_days_n_boards_boards,
+      </if>
+      <if test="plateName2 != null">
+        plate_name2,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rpTime != null">
+        #{rpTime,jdbcType=DATE},
+      </if>
+      <if test="stockcode != null">
+        #{stockcode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockname != null">
+        #{stockname,jdbcType=VARCHAR},
+      </if>
+      <if test="changePercent != null">
+        #{changePercent,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="buyLockVolumeRatio != null">
+        #{buyLockVolumeRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="turnoverRatio != null">
+        #{turnoverRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="nonRestrictedCapital != null">
+        #{nonRestrictedCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="totalCapital != null">
+        #{totalCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="firstLimitUp != null">
+        #{firstLimitUp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLimitUp != null">
+        #{lastLimitUp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitUpDays != null">
+        #{limitUpDays,jdbcType=INTEGER},
+      </if>
+      <if test="breakLimitUpTimes != null">
+        #{breakLimitUpTimes,jdbcType=INTEGER},
+      </if>
+      <if test="stockReason != null">
+        #{stockReason,jdbcType=VARCHAR},
+      </if>
+      <if test="plateName != null">
+        #{plateName,jdbcType=VARCHAR},
+      </if>
+      <if test="plateId != null">
+        #{plateId,jdbcType=VARCHAR},
+      </if>
+      <if test="mDaysNBoardsDays != null">
+        #{mDaysNBoardsDays,jdbcType=INTEGER},
+      </if>
+      <if test="mDaysNBoardsBoards != null">
+        #{mDaysNBoardsBoards,jdbcType=INTEGER},
+      </if>
+      <if test="plateName2 != null">
+        #{plateName2,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.module.data.entity.Jinrizhangting">
+    update jinrizhangting
+    <set>
+      <if test="rpTime != null">
+        rp_time = #{rpTime,jdbcType=DATE},
+      </if>
+      <if test="stockcode != null">
+        stockcode = #{stockcode,jdbcType=VARCHAR},
+      </if>
+      <if test="stockname != null">
+        stockname = #{stockname,jdbcType=VARCHAR},
+      </if>
+      <if test="changePercent != null">
+        change_percent = #{changePercent,jdbcType=DOUBLE},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DOUBLE},
+      </if>
+      <if test="buyLockVolumeRatio != null">
+        buy_lock_volume_ratio = #{buyLockVolumeRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="turnoverRatio != null">
+        turnover_ratio = #{turnoverRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="nonRestrictedCapital != null">
+        non_restricted_capital = #{nonRestrictedCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="totalCapital != null">
+        total_capital = #{totalCapital,jdbcType=DOUBLE},
+      </if>
+      <if test="firstLimitUp != null">
+        first_limit_up = #{firstLimitUp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastLimitUp != null">
+        last_limit_up = #{lastLimitUp,jdbcType=TIMESTAMP},
+      </if>
+      <if test="limitUpDays != null">
+        limit_up_days = #{limitUpDays,jdbcType=INTEGER},
+      </if>
+      <if test="breakLimitUpTimes != null">
+        break_limit_up_times = #{breakLimitUpTimes,jdbcType=INTEGER},
+      </if>
+      <if test="stockReason != null">
+        stock_reason = #{stockReason,jdbcType=VARCHAR},
+      </if>
+      <if test="plateName != null">
+        plate_name = #{plateName,jdbcType=VARCHAR},
+      </if>
+      <if test="plateId != null">
+        plate_id = #{plateId,jdbcType=VARCHAR},
+      </if>
+      <if test="mDaysNBoardsDays != null">
+        m_days_n_boards_days = #{mDaysNBoardsDays,jdbcType=INTEGER},
+      </if>
+      <if test="mDaysNBoardsBoards != null">
+        m_days_n_boards_boards = #{mDaysNBoardsBoards,jdbcType=INTEGER},
+      </if>
+      <if test="plateName2 != null">
+        plate_name2 = #{plateName2,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where objid = #{objid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.module.data.entity.Jinrizhangting">
+    update jinrizhangting
+    set rp_time = #{rpTime,jdbcType=DATE},
+      stockcode = #{stockcode,jdbcType=VARCHAR},
+      stockname = #{stockname,jdbcType=VARCHAR},
+      change_percent = #{changePercent,jdbcType=DOUBLE},
+      price = #{price,jdbcType=DOUBLE},
+      buy_lock_volume_ratio = #{buyLockVolumeRatio,jdbcType=DOUBLE},
+      turnover_ratio = #{turnoverRatio,jdbcType=DOUBLE},
+      non_restricted_capital = #{nonRestrictedCapital,jdbcType=DOUBLE},
+      total_capital = #{totalCapital,jdbcType=DOUBLE},
+      first_limit_up = #{firstLimitUp,jdbcType=TIMESTAMP},
+      last_limit_up = #{lastLimitUp,jdbcType=TIMESTAMP},
+      limit_up_days = #{limitUpDays,jdbcType=INTEGER},
+      break_limit_up_times = #{breakLimitUpTimes,jdbcType=INTEGER},
+      stock_reason = #{stockReason,jdbcType=VARCHAR},
+      plate_name = #{plateName,jdbcType=VARCHAR},
+      plate_id = #{plateId,jdbcType=VARCHAR},
+      m_days_n_boards_days = #{mDaysNBoardsDays,jdbcType=INTEGER},
+      m_days_n_boards_boards = #{mDaysNBoardsBoards,jdbcType=INTEGER},
+      plate_name2 = #{plateName2,jdbcType=VARCHAR}
+    where objid = #{objid,jdbcType=VARCHAR}
+  </update>
+</mapper>
