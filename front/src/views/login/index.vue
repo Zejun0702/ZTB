@@ -1,23 +1,14 @@
 <template>
   <div class="login-container">
     <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
-
       <div class="title-container">
         <h3 class="title">Login Form</h3>
       </div>
-
       <el-form-item prop="username">
         <span class="svg-container">
           <svg-icon icon-class="user" />
         </span>
-        <el-input
-          ref="username"
-          v-model="loginForm.username"
-          placeholder="Username"
-          name="username"
-          type="text"
-          tabindex="1"
-          autocomplete="on"
+        <el-input ref="username" v-model="loginForm.username" placeholder="Username" name="username" type="text" tabindex="1" autocomplete="on"
         />
       </el-form-item>
 
@@ -48,27 +39,31 @@
       <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
 
       <div style="position:relative">
-        <div class="tips">
-          <span>Username : admin</span>
-          <span>Password : any</span>
-        </div>
-        <div class="tips">
-          <span style="margin-right:18px;">Username : editor</span>
-          <span>Password : any</span>
-        </div>
-
-        <el-button class="thirdparty-button" type="primary" @click="showDialog=true">
-          Or connect with
-        </el-button>
+        <el-button class="register" type="primary" @click="showDialog=true">注册</el-button>
+        <el-button class="resetPassword" type="primary" @click="showDialog=true" align="right">忘记密码</el-button>
       </div>
     </el-form>
 
-    <el-dialog title="Or connect with" :visible.sync="showDialog">
-      Can not be simulated on local, so please combine you own business simulation! ! !
-      <br>
-      <br>
-      <br>
-      <social-sign />
+    <el-dialog title="注册新用户" :visible.sync="showDialog">
+      <el-form>
+        <el-form-item label="用户名">
+          <el-input v-model="registerForm.name"></el-input>
+        </el-form-item>
+        <el-form-item label="密码">
+          <el-input v-model="registerForm.pwd"></el-input>
+        </el-form-item>
+        <el-form-item label="再输入一次">
+          <el-input v-model="registerForm.pwd"></el-input>
+        </el-form-item>
+        <el-form-item label="输入验证邮箱">
+          <el-input v-model="registerForm.email"></el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button @click="loadCap">点击验证</el-button>
+          <div id="grecaptcha"></div>
+        </el-form-item>
+      </el-form>
+
     </el-dialog>
   </div>
 </template>
@@ -96,10 +91,12 @@ export default {
       }
     }
     return {
+      sitekey: "6LdupzAdAAAAAOfIrqeITLALApzBgzOVT7b2f6Ml",
       loginForm: {
         username: 'admin',
         password: '111111'
       },
+      registerForm: {},
       loginRules: {
         username: [{ required: true, trigger: 'blur', validator: validateUsername }],
         password: [{ required: true, trigger: 'blur', validator: validatePassword }]
@@ -133,7 +130,12 @@ export default {
     } else if (this.loginForm.password === '') {
       this.$refs.password.focus()
     }
+    // this.loaded()
   },
+
+
+
+
   destroyed() {
     // window.removeEventListener('storage', this.afterQRScan)
   },
@@ -142,6 +144,37 @@ export default {
       const { key } = e
       this.capsTooltip = key && key.length === 1 && (key >= 'A' && key <= 'Z')
     },
+    loadCap() {
+
+      let appid = '2015932031'; // 腾讯云控制台中对应这个项目的 appid
+      //生成一个滑块验证码对象
+      let captcha = new TencentCaptcha(appid, function (res) {
+        // 用户滑动结束或者关闭弹窗，腾讯返回的内容
+        console.log(res)
+        if (res.ret === 0) {
+          //成功，传递数据给后台进行验证
+          axios.post('接口路径', {
+            Ticket: res.ticket,
+            CaptchaAppId: res.appid,
+            Randstr: res.randstr,
+            // 其他参数
+          })
+            .then(
+              // 后台验证通过，返回用户信息
+              // 前端接收并登陆系统
+            )
+            .catch(
+              // 验证失败
+            )
+        } else {
+          // 提示用户完成验证
+        }
+      });
+      // 滑块显示
+      captcha.show();
+    },
+
+
     showPwd() {
       if (this.passwordType === 'password') {
         this.passwordType = ''
@@ -178,31 +211,11 @@ export default {
         return acc
       }, {})
     }
-    // afterQRScan() {
-    //   if (e.key === 'x-admin-oauth-code') {
-    //     const code = getQueryObject(e.newValue)
-    //     const codeMap = {
-    //       wechat: 'code',
-    //       tencent: 'code'
-    //     }
-    //     const type = codeMap[this.auth_type]
-    //     const codeName = code[type]
-    //     if (codeName) {
-    //       this.$store.dispatch('LoginByThirdparty', codeName).then(() => {
-    //         this.$router.push({ path: this.redirect || '/' })
-    //       })
-    //     } else {
-    //       alert('第三方登录失败')
-    //     }
-    //   }
-    // }
   }
 }
 </script>
 
 <style lang="scss">
-/* 修复input 背景不协调 和光标变色 */
-/* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
 $bg:#283443;
 $light_gray:#fff;

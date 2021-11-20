@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.module.data.dao.ZhangdiejiashuDao">
+  <resultMap id="BaseResultMap" type="com.example.demo.module.data.entity.Zhangdiejiashu">
+    <id column="objid" jdbcType="VARCHAR" property="objid" />
+    <result column="rp_time" jdbcType="DATE" property="rpTime" />
+    <result column="fall_count" jdbcType="INTEGER" property="fallCount" />
+    <result column="rise_count" jdbcType="INTEGER" property="riseCount" />
+    <result column="limit_up_count" jdbcType="INTEGER" property="limitUpCount" />
+    <result column="limit_down_count" jdbcType="INTEGER" property="limitDownCount" />
+    <result column="limit_up_broken_ratio" jdbcType="DOUBLE" property="limitUpBrokenRatio" />
+    <result column="limit_up_broken_count" jdbcType="INTEGER" property="limitUpBrokenCount" />
+    <result column="last_check_time_2" jdbcType="TIMESTAMP" property="lastCheckTime2" />
+    <result column="last_check_time_3" jdbcType="TIMESTAMP" property="lastCheckTime3" />
+    <result column="last_check_time_1" jdbcType="TIMESTAMP" property="lastCheckTime1" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    objid, rp_time, fall_count, rise_count, limit_up_count, limit_down_count, limit_up_broken_ratio, 
+    limit_up_broken_count, last_check_time_2, last_check_time_3, last_check_time_1
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from zhangdiejiashu
+    where objid = #{objid,jdbcType=VARCHAR}
+  </select>
+
+  <select id="getLDNum" parameterType="Integer" resultMap="BaseResultMap">
+    select
+    *
+    from zhangdiejiashu
+    order by rp_time desc
+    limit 0,#{searchDays}
+  </select>
+
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from zhangdiejiashu
+    where objid = #{objid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" keyColumn="objid" keyProperty="objid" parameterType="com.example.demo.module.data.entity.Zhangdiejiashu" useGeneratedKeys="true">
+    insert into zhangdiejiashu (rp_time, fall_count, rise_count, 
+      limit_up_count, limit_down_count, limit_up_broken_ratio, 
+      limit_up_broken_count, last_check_time_2, last_check_time_3, 
+      last_check_time_1)
+    values (#{rpTime,jdbcType=DATE}, #{fallCount,jdbcType=INTEGER}, #{riseCount,jdbcType=INTEGER}, 
+      #{limitUpCount,jdbcType=INTEGER}, #{limitDownCount,jdbcType=INTEGER}, #{limitUpBrokenRatio,jdbcType=DOUBLE}, 
+      #{limitUpBrokenCount,jdbcType=INTEGER}, #{lastCheckTime2,jdbcType=TIMESTAMP}, #{lastCheckTime3,jdbcType=TIMESTAMP}, 
+      #{lastCheckTime1,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" keyColumn="objid" keyProperty="objid" parameterType="com.example.demo.module.data.entity.Zhangdiejiashu" useGeneratedKeys="true">
+    insert into zhangdiejiashu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="rpTime != null">
+        rp_time,
+      </if>
+      <if test="fallCount != null">
+        fall_count,
+      </if>
+      <if test="riseCount != null">
+        rise_count,
+      </if>
+      <if test="limitUpCount != null">
+        limit_up_count,
+      </if>
+      <if test="limitDownCount != null">
+        limit_down_count,
+      </if>
+      <if test="limitUpBrokenRatio != null">
+        limit_up_broken_ratio,
+      </if>
+      <if test="limitUpBrokenCount != null">
+        limit_up_broken_count,
+      </if>
+      <if test="lastCheckTime2 != null">
+        last_check_time_2,
+      </if>
+      <if test="lastCheckTime3 != null">
+        last_check_time_3,
+      </if>
+      <if test="lastCheckTime1 != null">
+        last_check_time_1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="rpTime != null">
+        #{rpTime,jdbcType=DATE},
+      </if>
+      <if test="fallCount != null">
+        #{fallCount,jdbcType=INTEGER},
+      </if>
+      <if test="riseCount != null">
+        #{riseCount,jdbcType=INTEGER},
+      </if>
+      <if test="limitUpCount != null">
+        #{limitUpCount,jdbcType=INTEGER},
+      </if>
+      <if test="limitDownCount != null">
+        #{limitDownCount,jdbcType=INTEGER},
+      </if>
+      <if test="limitUpBrokenRatio != null">
+        #{limitUpBrokenRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="limitUpBrokenCount != null">
+        #{limitUpBrokenCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastCheckTime2 != null">
+        #{lastCheckTime2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCheckTime3 != null">
+        #{lastCheckTime3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCheckTime1 != null">
+        #{lastCheckTime1,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.module.data.entity.Zhangdiejiashu">
+    update zhangdiejiashu
+    <set>
+      <if test="rpTime != null">
+        rp_time = #{rpTime,jdbcType=DATE},
+      </if>
+      <if test="fallCount != null">
+        fall_count = #{fallCount,jdbcType=INTEGER},
+      </if>
+      <if test="riseCount != null">
+        rise_count = #{riseCount,jdbcType=INTEGER},
+      </if>
+      <if test="limitUpCount != null">
+        limit_up_count = #{limitUpCount,jdbcType=INTEGER},
+      </if>
+      <if test="limitDownCount != null">
+        limit_down_count = #{limitDownCount,jdbcType=INTEGER},
+      </if>
+      <if test="limitUpBrokenRatio != null">
+        limit_up_broken_ratio = #{limitUpBrokenRatio,jdbcType=DOUBLE},
+      </if>
+      <if test="limitUpBrokenCount != null">
+        limit_up_broken_count = #{limitUpBrokenCount,jdbcType=INTEGER},
+      </if>
+      <if test="lastCheckTime2 != null">
+        last_check_time_2 = #{lastCheckTime2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCheckTime3 != null">
+        last_check_time_3 = #{lastCheckTime3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastCheckTime1 != null">
+        last_check_time_1 = #{lastCheckTime1,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where objid = #{objid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.module.data.entity.Zhangdiejiashu">
+    update zhangdiejiashu
+    set rp_time = #{rpTime,jdbcType=DATE},
+      fall_count = #{fallCount,jdbcType=INTEGER},
+      rise_count = #{riseCount,jdbcType=INTEGER},
+      limit_up_count = #{limitUpCount,jdbcType=INTEGER},
+      limit_down_count = #{limitDownCount,jdbcType=INTEGER},
+      limit_up_broken_ratio = #{limitUpBrokenRatio,jdbcType=DOUBLE},
+      limit_up_broken_count = #{limitUpBrokenCount,jdbcType=INTEGER},
+      last_check_time_2 = #{lastCheckTime2,jdbcType=TIMESTAMP},
+      last_check_time_3 = #{lastCheckTime3,jdbcType=TIMESTAMP},
+      last_check_time_1 = #{lastCheckTime1,jdbcType=TIMESTAMP}
+    where objid = #{objid,jdbcType=VARCHAR}
+  </update>
+</mapper>

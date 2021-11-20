@@ -15,10 +15,16 @@ public class DataController {
     private DataService dataService;
 
     @PostMapping("/ztb/data/getData")
-    public ResultModel getJinrizhangting(@RequestBody RequestParameter requestParameter){
-        System.out.println(requestParameter.getChosenDate());
+    public ResultModel getJinrizhangting(@RequestBody RequestParameter requestParameter) {
         ResultModel resultModel = dataService.getJinrizhangting(requestParameter.getChosenDate());
         return resultModel;
+    }
+
+    @PostMapping("/ztb/data/getLDNum")
+    public ResultModel getLDNum(@RequestBody RequestParameter requestParameter) {
+        ResultModel resultModel = dataService.getLDNum(requestParameter.getSearchOption());
+        return resultModel;
+
 
 //        return "{\"code\":20000,\"data\":{\"token\":\"admin-token\"}}";
     }

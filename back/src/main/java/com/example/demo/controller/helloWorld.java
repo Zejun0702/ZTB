@@ -52,7 +52,7 @@ public class helloWorld {
 
 	@PostMapping("/vue-element-admin/user/logout")
 	public String logout(@RequestParam(required=false) String username, @RequestParam(required=false) String password){
-		return "{\"code\":20000,\"data\":\"success\"}";
+		return "{\"code\":200,\"data\":\"success\"}";
 	}
 
 	@RequestMapping(value = "/vue-element-admin/user/info",method= RequestMethod.GET)
