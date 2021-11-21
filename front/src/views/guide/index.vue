@@ -7,7 +7,13 @@
           <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
           </el-option>
         </el-select>
+        <el-switch
+          v-model="value"
+          active-text="叠加上证指数"
+          inactive-text="关闭上证指数">
+        </el-switch>
       </el-form-item>
+
     </el-form>
   </el-header>
   <el-main>
