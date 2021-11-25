@@ -1,29 +1,27 @@
 <template>
 
-  <div id="app">
-    <div class="ArticleSection" style="text-align:center;">2222</div>
-    <div class="p1">
-
-      <h1>一级标题</h1>
-      <p>远程开户</p>
-    </div>
-<!--    <div v-html="message"></div>.-->
+  <div>
+    <vue-markdown :source="content"></vue-markdown>
   </div>
 </template>
 
 <script>
 
+
 import VueMarkdown from 'vue-markdown';
+import MarkdownEditor from '@/components/MarkdownEditor'
+import  data from "/src/views/example/README.md"
 export default {
+  components: {
+    VueMarkdown
+  },
 
   data(){
     return {
-      comment : '#nihao'
+      content: data,
     }
   },
 
-  name: 'CreateArticle',
-  components: VueMarkdown,
 }
 </script>
 
