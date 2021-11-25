@@ -7,10 +7,12 @@ import com.example.demo.module.data.entity.Jinrizhangting;
 import com.example.demo.module.data.entity.Zhangdiejiashu;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import java.util.List;
 
 @Service
+
 public class DataService {
 
     @Autowired
