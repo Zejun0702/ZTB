@@ -10,7 +10,7 @@
 
 import VueMarkdown from 'vue-markdown';
 import MarkdownEditor from '@/components/MarkdownEditor'
-import  data from "/src/views/example/README.md"
+// import  data from "/src/views/example/README.md"
 export default {
   components: {
     VueMarkdown
