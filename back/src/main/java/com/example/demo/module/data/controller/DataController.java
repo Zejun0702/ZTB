@@ -26,8 +26,6 @@ public class DataController {
     public ResultModel getLDNum(@RequestBody RequestParameter requestParameter) {
         ResultModel resultModel = dataService.getLDNum(requestParameter.getSearchOption());
         return resultModel;
-
-
-//        return "{\"code\":20000,\"data\":{\"token\":\"admin-token\"}}";
+        
     }
 }
